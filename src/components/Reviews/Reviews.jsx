@@ -20,15 +20,15 @@ const Reviews = ({ setError}) => {
     
   }, [])
 
-  console.log(reviews)
+  // console.log(reviews.results.length)
 
   return (
     
     <ul className={s.reviews}>
-      {reviews.results && reviews.results.map((reviwe) => <li className={s.reviewsItem} key={reviwe.id}>
+      {reviews.length ? reviews.results.map((reviwe) => <li className={s.reviewsItem} key={reviwe.id}>
         <h2 className={s.reviewsTitle}>{reviwe.author}</h2>
         <p className={s.reviewsDescr}>{reviwe.content}</p>
-      </li>)}
+      </li>) : <p className={s.noneReview}>This movie hadn't any reviwes.</p>}
     </ul>
   )
 }

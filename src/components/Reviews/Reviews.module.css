@@ -13,3 +13,9 @@
 .reviewsTitle {
   margin-bottom: 15px;
 }
+
+.noneReview {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
