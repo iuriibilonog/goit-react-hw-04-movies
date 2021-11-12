@@ -1,0 +1,10 @@
+.errorImg {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.errorDesc {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}

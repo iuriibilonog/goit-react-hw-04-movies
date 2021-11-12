@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+}
+
+.goBackBtn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.movieDescr {
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.movieImg {
+  max-width: 350px;
+  margin-left: 30px;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.score {
+  margin-bottom: 10px;
+}
+
+.overviewTitle {
+  margin-bottom: 10px;
+}
+
+.overview {
+  margin-bottom: 10px;
+  max-width: 800px;
+}
+
+.genreTitle {
+  margin-bottom: 10px;
+}
+
+.genre {
+  margin-bottom: 10px;
+}
+
+.additionalList {
+  margin-left: 30px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.additionalItem {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: normal;
+}
