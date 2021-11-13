@@ -1,37 +1,42 @@
-import { useState } from "react";
-import { Route } from "react-router";
+import { useState, lazy, Suspense } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import Navigation from "./components/Navigation";
-import HomePage from "./pages/HomePage";
-import MoviesPage from "./pages/MoviesPage";
-import MovieDetailsPage from "./pages/MovieDetailsPage";
-import Error from "./components/Error";
 
-// getMovieReviews("268").then((data) => console.log(data));
+const HomePage = lazy(() =>
+  import("./pages/HomePage" /*webpackChunkName: 'home-page'*/)
+);
+const MoviesPage = lazy(() =>
+  import("./pages/MoviesPage" /*webpackChunkName: 'movies-page'*/)
+);
+const MovieDetailsPage = lazy(() =>
+  import("./pages/MovieDetailsPage" /*webpackChunkName: 'movie-details-page'*/)
+);
 
 function App() {
-  const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
   return (
     <div className="App">
       <Navigation />
 
-      <Route exact path="/">
-        <HomePage />
-      </Route>
+      <Suspense fallback={<h2> Lodaing...</h2>}>
+        <Switch>
+          {error && <h2>{error.message}</h2>}
+          <Route exact path="/">
+            <HomePage setError={setError} />
+          </Route>
 
-      <Route exact path="/movies">
-        <MoviesPage setStatus={setStatus} setError={setError} />
-      </Route>
+          <Route exact path="/movies">
+            <MoviesPage setError={setError} />
+          </Route>
 
-      <Route path="/movies/:movieId">
-        <MovieDetailsPage setStatus={setStatus} setError={setError} />
-      </Route>
-
-      {status === "error" && <Error />}
-
-      {error && <h2>{error.massage}</h2>}
+          <Route path="/movies/:movieId">
+            <MovieDetailsPage setError={setError} />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </Suspense>
     </div>
   );
 }

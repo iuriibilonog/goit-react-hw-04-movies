@@ -1,9 +1,10 @@
-import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import s from '../HomePage/HomePage.module.css';
 import { useEffect, useState } from 'react';
 import { getTrendingMovies } from '../../services/api'
 
-const HomePage = () => {
+const HomePage = ({setError}) => {
 
 
 
@@ -14,10 +15,10 @@ const HomePage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    getTrendingMovies().then(setTrendingMovies)
+    getTrendingMovies().then(setTrendingMovies).catch((err) => setError(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log(trendingMovies)
   
 
   return (
@@ -37,6 +38,10 @@ const HomePage = () => {
       </ul>
     </>
   )
+}
+
+HomePage.propTypse = {
+  setError: PropTypes.func.isRequired
 }
 
 export default HomePage;

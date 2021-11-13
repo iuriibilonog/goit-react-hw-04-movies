@@ -7,7 +7,7 @@ import { getMovieCredits } from '../../services/api';
 const Cast = ({setError}) => {
 
   const { movieId } = useParams();
-  console.log(movieId)
+  
 
   
   
@@ -19,9 +19,10 @@ const Cast = ({setError}) => {
       !data ? setCredits('No credits') : setCredits(data))
       .catch((err) => setError(err))
     
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log(credits)
+
 
   return (
     <ul className={s.creditsList}>

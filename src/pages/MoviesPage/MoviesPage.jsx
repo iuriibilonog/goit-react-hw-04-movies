@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import { Link, useRouteMatch, useHistory, useLocation } from "react-router-dom";
 import { getMovieByQuery } from "../../services/api";
 import s from "../MoviesPage/MoviesPage.module.css";
+import Error from "../../components/Error";
 
-const MoviesPage = ({ setStatus, setError }) => {
+const MoviesPage = ({ setError }) => {
   const [input, setInput] = useState("");
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
+  const [status, setStatus] = useState(null);
 
   const { url } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+
 
   useEffect(() => {
     if (query === "") return;
@@ -24,6 +28,7 @@ const MoviesPage = ({ setStatus, setError }) => {
         data.results.length === 0 ? setStatus("error") : setMovies(data.results)
       )
       .catch((err) => setError(err));
+  // eslint-disable-next-line react-hooks/exhaustive-deps  
   }, [query]);
 
   const handlerOnChange = (e) => {
@@ -41,6 +46,7 @@ const MoviesPage = ({ setStatus, setError }) => {
   const myParam = urlParams.get('query');
   
   useEffect(() => {
+    setStatus(null)
      if (!myParam && !query) return setMovies([])
      getMovieByQuery(myParam)
       .then((data) =>
@@ -48,11 +54,10 @@ const MoviesPage = ({ setStatus, setError }) => {
       )
       .catch((err) => setError(err));
      
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
-  console.log('query-->', query)
-  console.log('myParam-->', myParam)
+
 
   return (
     <>
@@ -71,7 +76,10 @@ const MoviesPage = ({ setStatus, setError }) => {
           </button>
         </form>
       </div>
+        {status === "error" && <Error />}
       <ul className={s.moviesList}>
+
+
         {movies.map((movie) => (
           <li className={s.moviesListItem} key={movie.id}>
             <Link
@@ -96,5 +104,9 @@ const MoviesPage = ({ setStatus, setError }) => {
     </>
   );
 };
+
+MoviesPage.propTypse = {
+  setError: PropTypes.func.isRequired
+}
 
 export default MoviesPage;
