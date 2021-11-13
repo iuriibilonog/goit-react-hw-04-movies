@@ -18,7 +18,7 @@ const MovieDetailsPage = ({ setStatus, setError}) => {
   const [movie, setMovie] = useState({});
   const [rewievs, setReviews] = useState({});
 
-  // getMovieReviews(movieId).then((data) => console.log(data));
+  
   useEffect(() => {
     setStatus(null);
     setMovie([]);
@@ -30,6 +30,8 @@ const MovieDetailsPage = ({ setStatus, setError}) => {
     
     
   }, [])
+
+  console.log(location.state)
 
   const handleGoBack = () => {
     history.push(location.state?.from);
@@ -51,8 +53,14 @@ const MovieDetailsPage = ({ setStatus, setError}) => {
       <p className={s.genre}>{movie.genres && movie.genres.map(genre => <span key={genre.id}>/ {genre.name} /</span>)}</p>
       </div>
       <ul className={s.additionalList}> Additional information:
-        <li className={s.additionalItem}> <NavLink to={`${url}/casts`}> Cast </NavLink></li>
-        <li className={s.additionalItem}><NavLink to={`${url}/reviews`}>Reviews</NavLink></li>
+        <li className={s.additionalItem}> <NavLink to={{
+                pathname: `${url}/casts`,
+                state: { ...location.state},
+              }}> Cast </NavLink></li>
+        <li className={s.additionalItem}><NavLink to={{
+                pathname: `${url}/reviews`,
+                state: { ...location.state},
+              }}>Reviews</NavLink></li>
       </ul>
       </div>
         </div>

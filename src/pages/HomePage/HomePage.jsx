@@ -5,12 +5,13 @@ import { getTrendingMovies } from '../../services/api'
 
 const HomePage = () => {
 
-  // const {url} = useRouteMatch();
 
-  const location = useLocation();
-  console.log(location)
+
   
   const [trendingMovies, setTrendingMovies] = useState(null)
+  
+
+  const location = useLocation();
 
   useEffect(() => {
     getTrendingMovies().then(setTrendingMovies)

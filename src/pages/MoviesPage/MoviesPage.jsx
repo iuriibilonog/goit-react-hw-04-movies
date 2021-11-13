@@ -37,6 +37,23 @@ const MoviesPage = ({ setStatus, setError }) => {
     history.push({ ...history.location, search: `query=${input}` });
   };
 
+  const urlParams = new URLSearchParams(location.search);
+  const myParam = urlParams.get('query');
+  
+  useEffect(() => {
+     if (!myParam && !query) return setMovies([])
+     getMovieByQuery(myParam)
+      .then((data) =>
+        data.results.length === 0 ? setStatus("error") : setMovies(data.results)
+      )
+      .catch((err) => setError(err));
+     
+    
+  }, [location])
+
+  console.log('query-->', query)
+  console.log('myParam-->', myParam)
+
   return (
     <>
       <div className={s.formWrapper}>

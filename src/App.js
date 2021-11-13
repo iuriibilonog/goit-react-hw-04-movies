@@ -31,7 +31,7 @@ function App() {
 
       {status === "error" && <Error />}
 
-      {error && <h1>re-re</h1>}
+      {error && <h2>{error.massage}</h2>}
     </div>
   );
 }
