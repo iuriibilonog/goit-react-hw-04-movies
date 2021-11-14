@@ -4,9 +4,7 @@ const BASE_URL = "https://api.themoviedb.org/3";
 const key = "api_key=763543711af3137e55771560fa8539f1";
 
 function getDataServer(url = "", config = {}) {
-  const response = axios.get(url);
-
-  return response.then(({ data }) => data);
+  return axios.get(url).then(({ data }) => data);
 }
 
 export function getTrendingMovies() {
