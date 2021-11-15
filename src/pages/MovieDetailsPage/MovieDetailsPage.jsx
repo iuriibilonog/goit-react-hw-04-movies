@@ -7,7 +7,7 @@ import {
   useRouteMatch,
   useHistory,
   useLocation,
-  
+  Redirect,
 } from "react-router";
 import { NavLink } from "react-router-dom";
 import { getMovieDetails } from "../../services/api";
@@ -91,13 +91,19 @@ const MovieDetailsPage = ({ setError }) => {
         </div>
       </div>
       <Suspense fallback={<h2>Loadind...</h2>}>
+        
         <Route path="/movies/:movieId/casts">
           <Cast setError={setError} />
         </Route>
 
         <Route path="/movies/:movieId/reviews">
           <Reviews setError={setError} />
-        </Route>
+        </Route> 
+          <Redirect to={{
+            pathname: url,
+            state: {from: location.state?.from || '/' }
+          }} />
+        
       </Suspense>
     </>
   );

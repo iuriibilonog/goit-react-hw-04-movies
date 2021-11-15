@@ -10,10 +10,10 @@ const Reviews = ({ setError}) => {
 
   
   
-  const [reviews, setReviews] = useState({});
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    setReviews({});
+    // setReviews([]);
     getMovieReviews(movieId).then((data) =>
       !data ? setReviews('No reviews') : setReviews(data.results))
     .catch((err) => setError(err))
